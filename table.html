@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Information - Tetris Theme</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+        }
+        form {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        input:focus {
+            outline: 2px solid #0ff;
+        }
+        button {
+            background-color: #0ff;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 2px solid white;
+            padding: 10px;
+        }
+        tr:hover {
+            background-color: #0ff;
+            color: #000;
+        }
+        .highlight {
+            background-color: #ff0;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Class Information</h1>
+        <form id="classForm">
+            <input type="text" id="className" placeholder="Class Name" required>
+            <input type="number" id="numPeople" placeholder="Number of People" required>
+            <input type="text" id="description" placeholder="Description" required>
+            <button type="submit">Add Class</button>
+        </form>
+        <table id="classTable">
+            <thead>
+                <tr>
+                    <th>Class Name</th>
+                    <th>Number of People</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('classForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let className = document.getElementById('className').value;
+            let numPeople = document.getElementById('numPeople').value;
+            let description = document.getElementById('description').value;
+
+            let table = document.getElementById('classTable').querySelector('tbody');
+            let row = table.insertRow();
+            row.insertCell(0).textContent = className;
+            row.insertCell(1).textContent = numPeople;
+            row.insertCell(2).textContent = description;
+
+            row.addEventListener('click', function() {
+                console.log(`Class: ${className}, People: ${numPeople}, Description: ${description}`);
+                this.classList.toggle('highlight');
+            });
+            row.addEventListener('dblclick', function() {
+                this.remove();
+            });
+            row.addEventListener('mouseover', function() {
+                this.style.backgroundColor = '#0ff';
+                this.style.color = '#000';
+            });
+            row.addEventListener('mouseout', function() {
+                this.style.backgroundColor = '';
+                this.style.color = '';
+            });
+        });
+    </script>
+</body>
+</html>
